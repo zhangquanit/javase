@@ -1,0 +1,8 @@
+1446536783949	Extract local variable 'methods'
+1446536877509	Extract local variable 'method'
+1446536953686	Extract local variable 'test'
+1446537035186	Extract local variable 'getMethod'
+1446537049245	Extract local variable 'values'
+1446537185034	Delete element
+1446541357597	Extract local variable 'length'
+1446541398399	Extract local variable 'j'

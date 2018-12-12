@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/BaseStudy/BaseStudy.iml" filepath="$PROJECT_DIR$/BaseStudy/BaseStudy.iml" />
+      <module fileurl="file://$PROJECT_DIR$/File/File.iml" filepath="$PROJECT_DIR$/File/File.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ThreadTest2/ThreadTest2.iml" filepath="$PROJECT_DIR$/ThreadTest2/ThreadTest2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/compiler/compiler.iml" filepath="$PROJECT_DIR$/compiler/compiler.iml" />
+      <module fileurl="file://$PROJECT_DIR$/compiler_test/compiler_test.iml" filepath="$PROJECT_DIR$/compiler_test/compiler_test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/designpattern/designpattern.iml" filepath="$PROJECT_DIR$/designpattern/designpattern.iml" />
+      <module fileurl="file://$PROJECT_DIR$/exception/exception.iml" filepath="$PROJECT_DIR$/exception/exception.iml" />
+      <module fileurl="file://$PROJECT_DIR$/javaenhance/javaenhance.iml" filepath="$PROJECT_DIR$/javaenhance/javaenhance.iml" />
+      <module fileurl="file://$PROJECT_DIR$/javainfo/javainfo.iml" filepath="$PROJECT_DIR$/javainfo/javainfo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/myjavaenhance/myjavaenhance.iml" filepath="$PROJECT_DIR$/myjavaenhance/myjavaenhance.iml" />
+      <module fileurl="file://$PROJECT_DIR$/socket&amp;http/socket&amp;http.iml" filepath="$PROJECT_DIR$/socket&amp;http/socket&amp;http.iml" />
+      <module fileurl="file://$PROJECT_DIR$/structanddata/structanddata.iml" filepath="$PROJECT_DIR$/structanddata/structanddata.iml" />
+      <module fileurl="file://$PROJECT_DIR$/thread/thread.iml" filepath="$PROJECT_DIR$/thread/thread.iml" />
+      <module fileurl="file://$PROJECT_DIR$/thread_new/thread_new.iml" filepath="$PROJECT_DIR$/thread_new/thread_new.iml" />
+    </modules>
+  </component>
+</project>

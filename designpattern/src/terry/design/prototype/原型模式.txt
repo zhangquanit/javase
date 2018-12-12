@@ -1,0 +1,88 @@
+             
+                                                           原型模式
+类型：创建型
+定义：用原型实例指定创建对象的种类,并通过拷贝这些原型创建新的对象。       
+场景问题：
+ 现在有一个订单处理的系统，里面有一个保存订单的业务,在这个业务功能中,要求订单的预定数量超过1000的时候,就需要把订单拆成两份订单
+ 来保存，目前的订单类型有两种：一种是个人订单,一种是公司订单,现在想要实现一个通用的订单处理系统，也就是说,不管什么类型的订单,都要
+ 能够正常的处理
+ 首先,要想实现通用的订单处理,而不关心具体的订单类型,那么狠明显,订单处理的对象应该面向一个订单的接口或是一个通用的订单对象来编程，
+ 要求订单的预定数量超过1000的时候,就需要把订单拆成两份订单来保存，由于是面向接口编程,根本就不知道该订单的具体实现，也就无法创建该类型的订单对象，因为
+ 通过new关键字实例化的对象都必须有具体实现类，Api api=new ApiImpl();问题就是已经有了某个对象实例后，如何能够快速简单地创建出更多的这种对象？
+    
+ 标准实现：
+ //声明一个克隆自身的接口
+  public interface Prototype{
+     public Prototype clone();//克隆自身的方法
+  }           
+  //克隆的具体实现对象
+  public class ConcretePrototype implements Prototype{
+     @override
+     public Prototype clone(){
+        Prototype prototype=new ConcretePrototype();//最简单的克隆,新建一个自身对象,由于没有属性,就不再给对象赋值了
+        return prototype;
+     }
+  }       
+   public class ConcretePrototype2 implements Prototype{
+     @override
+     public Prototype clone(){
+        Prototype prototype=new ConcretePrototype2();
+        return prototype;
+     }
+  }      
+  
+  //使用原型的客户端
+  public class Client{
+   private Prototype prototype;//持有需要使用的原型接口对象
+     public Client(Prototype prototype){
+       this.prototype=prototype;
+     }
+     //执行某个功能操作
+    public void operation(){
+      Prototype prototype=prototype.clone();//需要创建原型接口的对象
+    }
+  }
+  
+  克隆最简单的方法就是new一个自己对象的实例,然后把自己实例中的数据取出来,设置到新的对象实例中。
+  
+原型模式 从某种意义上说,就像是new操作,因为都要通过new一个新的实例,不过原型模式克隆出的对象与原来的对象具有同样的属性。克隆出的对象
+与原对象没有任何关系,修改克隆对象的值不会影响原对象的值。
+
+Java中的克隆方法：clone()
+   实现Clonable接口,覆写clone方法,然后调用 super.clone();即可克隆出自身对象
+   
+ 原型模式的本质：克隆生成对象
+ 克隆是手段,目的是生成新的对象实例(具有与原对象同样的属性值).
+ 
+ 何时选用原型模式：
+  1.如果一个系统想要独立于它想要使用的对象时，可以使用原型模式，让系统只面向接口编程,在系统需要新的对象的时候,可以通过克隆原型
+  来得到。
+  2.如果需要实例化的类是在运行时刻动态指定时,可以使用原型模式,通过克隆原型来得到需要的实例。
+   
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+                              

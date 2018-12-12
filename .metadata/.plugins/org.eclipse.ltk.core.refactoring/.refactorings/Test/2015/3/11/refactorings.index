@@ -1,0 +1,8 @@
+1426336248906	Extract local variable 'javaTest'
+1426336279997	Extract local variable 'value'
+1426336292703	Extract local variable 'target'
+1426336302281	Extract local variable 'adviceImpl'
+1426336389393	Extract local variable 'proxy'
+1426336494561	Extract local variable 'newProxyInstance'
+1426336765458	Extract local variable 'proxy'
+1426342507382	Rename type 'JavaTest'

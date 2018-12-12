@@ -1,0 +1,91 @@
+
+
+异常的细节：
+
+1，如果父类的方法抛出了异常，那么子类在覆盖时，只能抛出父类的异常或者该异常的子类。
+
+2，如果父类的方法抛出多个异常，子类覆盖时，只抛出这些异常的子集。
+
+简单一句话：子类只能抛出父类异常的子类或者子集。，
+
+注意：如果覆盖时，被覆盖的方法没有抛出异常，那么子类绝对不能抛异常。如果出现异常，只能try，不能throws
+
+
+
+interface Inter
+{
+	void function();
+}
+
+class InterImpl implements Inter
+{
+	public void function()throws 
+	{
+		
+	}
+}
+
+
+
+
+
+class AException extends Exception 
+{
+}
+
+
+class BException extends AException 
+{
+}
+
+class CException extends Exception 
+{
+}
+
+Exception 
+	|--AException
+		|--BException
+	|--CException
+
+
+class Fu
+{
+	void show()throws AException
+	{}
+}
+
+class Test
+{
+	void method(Fu f)//Fu f = new Zi();
+	{
+		try
+		{
+			f.show();
+		}
+		catch (AException e)
+		{
+		}
+	
+	}
+}
+
+
+
+
+
+
+class Zi extends Fu
+{
+	void show()throws CException
+	{}
+}
+
+
+method(new Zi());
+class  
+{
+	public static void main(String[] args) 
+	{
+		System.out.println("Hello World!");
+	}
+}

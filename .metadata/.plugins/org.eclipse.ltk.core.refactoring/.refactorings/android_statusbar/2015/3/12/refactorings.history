@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Extract local variable &apos;httpPost&apos; from expression &apos;new HttpPost()&apos;&#x0D;&#x0A;- Original project: &apos;android_statusbar&apos;&#x0D;&#x0A;- Variable name: &apos;httpPost&apos;&#x0D;&#x0A;- Destination method: &apos;com.test.statubar.MainAct.onCreate()&apos;&#x0D;&#x0A;- Variable expression: &apos;new HttpPost()&apos;&#x0D;&#x0A;- Replace occurrences of expression with variable" description="Extract local variable &apos;httpPost&apos;" final="false" id="org.eclipse.jdt.ui.extract.temp" input="/src&lt;com.test.statubar{MainAct.java" name="httpPost" replace="true" selection="1166 0" stamp="1426687937730" version="1.0"/>
+</session>

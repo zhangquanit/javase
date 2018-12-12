@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Extract local variable &apos;buffer&apos; from expression &apos;IntBuffer.allocate(capacity)&apos;&#x0D;&#x0A;- Original project: &apos;File&apos;&#x0D;&#x0A;- Variable name: &apos;buffer&apos;&#x0D;&#x0A;- Destination method: &apos;com.cn.nio.IntBufferTest.main()&apos;&#x0D;&#x0A;- Variable expression: &apos;IntBuffer.allocate(capacity)&apos;&#x0D;&#x0A;- Replace occurrences of expression with variable" description="Extract local variable &apos;buffer&apos;" final="false" id="org.eclipse.jdt.ui.extract.temp" input="/src&lt;com.cn.nio{IntBufferTest.java" name="buffer" replace="true" selection="207 0" stamp="1409408872342" version="1.0"/>
+</session>

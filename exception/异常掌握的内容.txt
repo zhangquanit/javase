@@ -1,0 +1,40 @@
+/*
+异常掌握的几点：
+异常体系的一个特性：可抛性。可抛性指的是可以被throws和throw关键字操作。 
+
+
+1，异常的思想。
+	将问题封装成对象的思想。
+2，异常的处理方式。
+	throws声明。
+	try catch处理。注意catch才是最终处理异常的部分。
+	throws和try的应用场景。(什么时候try，什么时候抛)
+3，抛出多异常，并多catch处理的原则。
+
+4，编译时检测异常和运行时异常。 
+	
+5，自定义异常。
+
+6，throws和throw的区别。
+
+
+7，异常的封装和转换。
+
+8，finally的作用，try catch finally的组合形式。
+
+
+9，异常在覆盖时的细节。
+
+
+	
+
+*/
+
+
+class  
+{
+	public static void main(String[] args) 
+	{
+		System.out.println("Hello World!");
+	}
+}

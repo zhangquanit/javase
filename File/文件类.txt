@@ -1,0 +1,124 @@
+演示就是File对象的方法。
+1，创建：
+	boolean createNewFile():创建成功为true，否则为false。
+						如果指定目录下已有该文件，不会创建。
+						而输出流创建文件，如果该文件存在，会覆盖。
+						不想覆盖，必须在输出流中构造函数内容加入参数 true 续写.
+	创建文件夹:
+	boolean mkdir():make directory 在当前目录下创建单级目录。
+	boolean mkdirs():在当前目录下创建多级目录。
+	
+-----------------------	
+2，删除：
+	boolean delete():删除文件，注意，不走回收站 .所以删除时要慎用.
+					如果文件正在被使用，那么delete无法删除，返回false。
+					
+	对于文件夹删除，依赖于本地操作系统，windows删除文件夹，必须要保证该文件中的没有任何内容。否则不能删除
+	windows删除带内容的文件夹原理：从最里面开始删除，并不断向外删。
+	
+	void deleteOnExit():退出程序时，删除指定文件。
+				
+		void method()
+		{
+			File f = new File("a.txt");
+			
+			f.createNewFile();
+			
+			f.deleteOnExit():告诉jvm，在退出时，帮忙把这个文件删除。
+			
+			operate f code.....(read  write)
+			
+			f.delete();
+			
+			
+		}
+-----------------------
+
+3，获取。
+	名称：
+	getName():
+	路径。
+	getPath():获取File对象中封装什么，就获取什么。
+	getAbsolutePath():获取绝对路径。这个获取的是该文件或者文件夹所在硬盘的具体路径
+	父目录。
+	String  getParent() 获取的也是File对象中封装的路径的父目录，如果没有指定父目录，返回null。
+	File getParentFile():newFile("c:\\abc")
+	时间：
+	getFreeSpace():获取盘符剩余空间。
+	getTotalSpace()：获取盘符的总空间。
+	lastModified():获取修改时间。
+	long length():获取文件大小。 
+	
+-----------------------
+4，判断。
+	判断文件或者文件是否存在。
+	boolean exists():	
+	isFile();
+	isDirectory();
+	isAbsolute():
+	isHidden();
+	canRead():
+	canWrite():
+	canExecute():
+	
+----------------------
+
+
+
+	
+
+----------------------
+
+	String[] list():列出指定目录下当前的文件夹和文件的名称包含隐藏文件。
+	如果调用List方的file对象，封装的是一个文件，或者是一个不存在文件或者文件夹，返回的是null。
+	如果文件夹存在，但没有内容，返回一个数组，但是长度是0.
+	如果访问的是一个系统级文件夹，返回的也是null。因为java语言没有这个权限。
+	
+	
+	File[] listFiles():列出指定目录下当前的文件夹和文件对象包含隐藏文件对象。
+
+
+----------------------
+
+递归： 函数自身调用自身，这种情况就称为递归。
+	
+	注意：
+	1.递归的使用一定要定义条件，否则，栈内存溢出。死!
+	2,控制递归的次数。过多容易出现栈内存溢出。StackOverflowError
+	
+	
+什么时候用递归呢？
+当一个功能被复用，该该功能每次执行时，参数不确定。
+
+void show(int num)
+{
+	show(num--);
+	syso(num);
+}
+	
+void show()
+{
+	show();
+}
+
+
+void method()
+{
+	function();
+}
+
+void function()
+{
+	method();
+}
+
+
+
+
+
+
+
+
+
+
+

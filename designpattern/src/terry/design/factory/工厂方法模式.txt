@@ -1,0 +1,202 @@
+
+                                          工厂方法模式、
+类型：创建型
+ 定义：定义一个用于创建对象的接口,让子类决定实例化哪一个类,使一个类的实例化延迟到子类
+场景问题：实现一个导出数据的框架,来让客户选择数据的导出方式，并真正执行数据导出。
+  分析：不管用户选择什么样的导出格式,最后导出的都是一个文件,而且系统并不知道究竟要导出成为什么样的格式,
+  因此应该有一个统一的接口来描述最后生成的对象,并操作输出的文件。
+   public interface ExportFileApi{
+     public boolean export(String data);
+   }
+  对于导出数据的业务功能对象,它应该根据需要来创建相应的ExportFileApi的实现对象,因为特定的ExportFileApi的实现是与具体
+  的业务相关的,但是对于实现导出数据的业务功能对象而言,它并不知道应该创建那一个ExportFileApi的实现对象，也不知道如何创建(只有接口,没有具体实现类)。
+
+ 标准实现：
+ 
+  //产品接口
+  interface Product{
+    void opertaion();
+  }
+  //具体的产品实现
+  class ConcreteProductA implements Product{
+    @override
+    public void opertaion(){
+    
+    }
+  }
+  //具体的产品实现
+    class ConcreteProductB implements Product{
+    @override
+    public void opertaion(){
+    
+    }
+  }
+  
+  //业务类
+ public abstract class Creator{
+     //工厂方法
+     abstract Product factoryMethod();//定义一个用于创建对象的接口,让子类决定实例化哪一个类
+     
+     //执行业务操作,
+     public void someOperation(){
+      Product product=factoryMethod();//只关心得到产品,而不关心具体是哪一个产品,具体的产品由子类去实例化
+      product.opertaion(); //面向接口对象或抽象类编程,不用关心具体实现
+     }
+ }
+ 
+ public class ConcreteCreatorA extends Creator{
+      @override
+      public Product factoryMethod(){
+         return new ConcreteProductA(); //创建父类需要的具体产品A对象
+      }
+ }
+ public class ConcreteCreatorB extends Creator{
+      @override
+      public Product factoryMethod(){
+         return new ConcreteProductB(); //创建父类需要的具体产品B对象
+      }
+ }
+  
+  //客户端调用
+  public class Client{
+     public void test(){
+       Creator creator=new ConcreteCreatorA();
+         creator.someOperation();
+     }
+  }
+  
+   
+
+ 工厂方法模式的主要功能是让父类在不知道具体实现的情况下,完成自身的功能调用,而具体的实现延迟到子类来实现。这样在设计的时候
+ 不用去考虑具体的实现,需要某个对象,把它通过工厂方法返回就好了。在使用这些对象实现功能的时候还是通过接口来操作。
+ 
+ 工厂方法和IOC/DI的关系
+ 依赖注入(DI)：应用程序依赖容器创建并注入它所需要的外部资源(从对象外部获取的统称为外部资源),
+ 控制反转(IOC):容器控制应用程序,由容器反向地向应用程序注入其需要的外部资源。正常情况下,A类使用C是由A类主动去创建C类对象，
+              而现在却是向容器请求,由容器来决定实例化哪一个类,也就是说主动权由发起方A类  移交到了容器
+ 工厂方法和IOC/DC的思想很类似.在编写代码的时候,一旦要用到外部资源,就会开一个窗口,让容器能注入进来,也就是提供给容器使用
+ 的注入的途径。
+ public class A{
+   private C c=null;
+   public void setC(C c){//提供外部注入类C的途径
+   this.c=c;
+   }
+   public void fun(){
+   //这里使用C 可是又不主动去创建C，要求从外部注入,自己不用关心怎么获取C，直接使用就好了。
+      c.method();//体现了控制反转,原本这里控制如何实例化C，但是现在却将决定权移交给了外部，让外部来决定实例化哪一个C的实现类
+   }
+ }
+   
+ 因此,在A里面写代码的时候,凡是用到了外部资源(比如这里的C),就提供注入的途径，要求从外部注入，自己只管使用这些对象。
+ "变主动为被动"
+ 
+ 
+ 参数化工厂方法：
+   通过给工厂方法传递参数,让工厂方法根据参数的不同来创建不同的产品对象。
+ public class Creator{
+  //外部调用
+  public void someOperation(int type){
+         Product product=factoryMethod(type);//给工厂方法传递参数
+         product.method();
+   }
+   
+   //工厂方法  类似于简单工厂
+   public  Product factoryMethod(int type){
+      Product product=null;
+     if(type==1){
+        product=new ProductImplA();
+      }else if(type==2){
+        product=new ProductImplB();
+      }
+       return product;
+   }
+ }  
+   
+  //扩展新的功能
+ public class Creator2 extends Creator{
+   //工厂方法  类似于简单工厂
+   public  Product factoryMethod(int type){
+      Product product=null;
+     if(type==3){
+        product=new ProductImplC();//新产品
+      }else{
+        product=super.factoryMethod();//其他的还是由父类来实现
+      }
+       return product;
+   }
+ }
+  //客户端的调用
+  public class Client{
+    public void test{
+    
+     Creator creator=new Creator();
+      creator.someOperation(1);
+      creator.someOperation(2);
+     //如果扩展了新的功能
+      creator=new Creator2();
+      
+     creator.someOperation(1);
+     creator.someOperation(2);
+     creator.someOperation(3);//新实例
+    } 
+  }
+  
+ 工厂方法的优点：
+ 1.可以在不知道具体实现的情况下编程
+ 2.更容易扩展对象的新版本
+ 
+ 本质：延迟到子类来选择实现
+ 和简单工厂的区别：简单工厂也是选择实现,但是选择实现是在工厂类中完成的,而工厂方法是延迟到子类来实现，工厂模式里面使用工厂
+ 方法的地方是依赖于抽象(factoryMethod)而不是具体的实现(new ProductImpl)， 
+ 
+ 对设计原则的体现：
+   体现了"依赖倒置原则"，即依赖于抽象(接口或抽象类),而不要依赖于具体类,就是说不能让高层组件依赖于底层组件,而且不管高层组件还是底层组件
+   ，都应该依赖于抽象。
+    实现客户端请求操作的Creator就是高层组件，而具体实现ConcreteProduct就是底层组件，而Product就是抽象，对于Creator来说
+    它不关心具体的实现方式，它只是"面向接口编程":对于具体的实现来说,它只关心自己"如何实现接口"所要求的功能。
+ 倒置的是这个接口的“所有权”,事实上,高层组件只是提出要求,并不关心如何实现,而底层组件，就是真正实现高层组件所要求的接口功能
+ 的，因此看起来,底层实现的接口的所有权并不在底层组件手中,而是倒置到高层组件去了。
+ 
+ 如何选用工厂方法模式？
+  1.如果一个类需要创建某个接口的对象,但是又不知道具体实现，这种情况可以选用工厂方法模式,把创建对象的工作延迟到子类
+  中去实现。
+  2.如果一个类本身就希望由它的子类来创建所需要的对象的时候，应用使用工厂方法模式。
+ 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  

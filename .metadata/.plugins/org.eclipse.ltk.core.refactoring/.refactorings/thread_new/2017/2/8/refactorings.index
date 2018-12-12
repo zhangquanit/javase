@@ -1,0 +1,8 @@
+1487570852968	Delete element
+1487571258475	Extract local variable 'take'
+1487577956773	Extract local variable 'reentrantLock'
+1487577970824	Extract local variable 'heldByCurrentThread'
+1487577988305	Extract local variable 'holdCount'
+1487585691983	Delete element
+1487585894565	Extract local variable 'future'
+1487681325896	Delete element

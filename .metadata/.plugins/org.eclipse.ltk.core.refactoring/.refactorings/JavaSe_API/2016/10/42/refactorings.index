@@ -1,0 +1,44 @@
+1476253695486	Delete element
+1476254107715	Extract local variable 'assignableFrom'
+1476254679782	Extract local variable 'methods'
+1476254849912	Extract local variable 'methods2'
+1476255375531	Extract local variable 'modifiers'
+1476259270904	Extract local variable 'string'
+1476261429085	Extract local variable 'modifiers'
+1476261436383	Extract local variable 'isPublic'
+1476261450734	Extract local variable 'isStatic'
+1476261513321	Move compilation unit
+1476323637882	Extract local variable 'nextInt'
+1476323666436	Extract local variable 'counter'
+1476324603122	Extract local variable 'inner'
+1476329007546	Rename package 'single'
+1476329013038	Move compilation unit
+1476329859009	Extract local variable 'defaultBuilder'
+1476330131020	Extract local variable 'singleInstanceBuilder'
+1476330207185	Delete element
+1476330319450	Extract local variable 'instance'
+1476341609837	Copy package
+1476342035305	Extract local variable 'object'
+1476342394362	Delete element
+1476342643726	Copy compilation unit
+1476343014950	Delete element
+1476343836055	Extract local variable 'object'
+1476344468423	Delete element
+1476344642743	Extract local variable 'child'
+1476344649040	Extract local variable 'father'
+1476426238610	Extract local variable 'list1'
+1476426315964	Extract local variable 'retainAll'
+1476539549290	Copy compilation unit
+1476539568978	Delete element
+1476539701027	Extract local variable 'method'
+1476539722090	Extract local variable 'annotationPresent'
+1476539783684	Extract local variable 'annotation'
+1476539820082	Extract local variable 'annotations'
+1476539975906	Extract local variable 'annotationType'
+1476540122565	Extract local variable 'annotationsByType'
+1476540607070	Copy compilation unit
+1476540760109	Extract local variable 'declaredAnnotations'
+1476541135397	Extract local variable 'declaredAnnotation'
+1476542899281	Extract local variable 'cls'
+1476545128501	Extract local variable 'declaredAnnotation'
+1476550126994	Extract local variable 'test'

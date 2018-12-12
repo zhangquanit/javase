@@ -1,0 +1,289 @@
+
+                    命令模式
+类型：行为型
+定义：将一个请求封装为一个对象，从而使你可用不同的请求对客户进行参数化，对请求排队或记录请求日志，以及支持可撤销的操作。
+引出问题：客户端只是想要发出命令或者请求，不关心请求的真正接收者是谁,也不关心具体如何实现，而且同一个请求的动作可以有不
+同的请求内容，当然具体的处理功能也不一样，请问该怎样实现？
+命令模式的结构：
+Command:定义命令的接口，声明执行的方法
+ConcreteCommand:命令接口的实现对象，是"虚"的实现,通常会持有接收者(Receiver),并调用接收者的功能来完成命令要执行的操作。
+Receiver:接收者,真正执行命令的对象，任何类都可能成为一个接收者,只要它能够实现命令要求实现的相应功能。
+Invoker:要求命令对象执行命令,通常会持有命令对象,可以持有很多的命令对象,这个是客户端真正触发命令并要求命令执行相应操作的地方,
+也就是说相当于使用命令对象的入口。
+Client:创建具体的命令对象,并且设置命令对象的接收者,这个不是我们常规意义上的客户端,而是在组装命令对象和接收者,或许,把这个Client
+称为装配者更合适。因为真正使用命令的客户端是从Invoker来触发执行。
+调用过程：客户端组装命令对象和接收者,然后调用Invoker的XXX()，实际上是调用命令的XXX方法,然后命令的XXX方法再转调Receiver的XXX方法
+//命令接口,声明执行的操作
+public interface Command{
+ public void execute();//执行命令对象的操作
+}
+public　ConcreteCommand  implements Command{
+   private Receiver receiver;//持有相应的接收者对象
+   public ConcreteCommand(Receiver receiver){
+     this.receiver=receiver;
+   }
+   public void execute(){
+     receiver.action();//通常会转调接收者的相应方法,让接收者来真正执行功能
+   }
+}
+//接收者对象
+public class Receiver{
+ //示意方法,真正执行命令相应的操作
+  public void action(){
+      //真正执行命令操作的功能代码
+  }
+}
+//调用者
+public class Invoker{
+   private Command command;//持有命令对象
+   //设置调用者持有的命令对象
+   private  void setCommand(Command command){
+      this.command=command;
+   }
+   //示意方法,要求命令执行请求
+   public void runCommand(){
+     //调用命令对象的执行方法
+     command.execute();
+   }
+}
+
+public　class Client{
+  public void operation(){
+    //创建接收者
+    Receiver receiver=new Receiver();
+    //创建命令对象,设定它的接收者
+    Command command=new ConcreteCommand(receiver);
+    //创建invoker,把命令对象设置进去
+    Invoker invoker=new Invoker();
+    invoker.setCommand(command);
+    
+    invoker.runCommand();//调用命令
+  }
+}
+发起请求的对象(Invoker)和真正实现对象(Receiver)是解耦的？
+请求究竟由谁处理？如何处理？发起请求的对象是不知道的,也就是发起请求的对象和真正实现的对象是解耦的，发起请求的对象只管
+发出命令,其他的就不管了。也就是说Invoker和命令的真正实现者Receiver是解耦的,Invoker只管发出命令,其他的不管
+
+
+1.参数化配置：可以用不同的命令对象,去参数化配置客户的请求。
+ 也就是说,Invoker持有不同的命令对象,调用Invoker不同的请求方法,然后执行相应请求comannd的方法,再转调相应Receiver对应的方法。
+
+2.可撤销的操作：意思就是放弃该操作,回到未执行该操作前的状态， 有两种操作方式：一种是补偿式,又称反操作式。比如被撤销的操作是加
+的动作,那撤销的实现就变成减的操作,同理被撤销的操作是打开的功能,那么撤销的实现就是关闭的功能。
+具体实现就是在Invoker中创建一个保存command的集合,比如ArrayList,当有执行命令到来时就执行该命令并添加该命令到集合中,如果用户执行
+撤销操作,再从ArrayList.get(size-1)得到最后一个添加的命令,执行它的undo()方法，也就是和之前command执行相反的方法。比如原来是加的操作,
+这里就执行减的操作。如果撤销的动作是可恢复的话，可以在Invoker中再创建一个保存刚才撤销Command的集合，恢复撤销操作时，就取出该集合
+中的command操作即可。
+另一种是储存恢复式,意思就是把操作前的状态记录下来,然后要撤销操作的时候就直接恢复回去就可以了。
+
+3.宏命令：就是包含多个命令的命令,是一个命令的组合。
+比如去饭馆吃饭，客户只需要发出命令,就是吃什么菜，每道菜就相当于一个命令对象，服务员会在菜单上记录你点的菜，然后把菜单传递给后厨，后厨
+拿到菜单,会按照菜单进行饭菜制作，后厨就相当于接收者，是命令的真正执行者，服务员就相当于Invoker,负责命令和接收者的组装，比如点了凉菜，热菜
+，你其实是不知道到底凉菜是谁来完成，热菜是谁来完成，因此你只管发命令，而组装的工作就由服务员完成了，服务员知道凉菜送到凉菜部，那是已经做好了的
+热菜才送到后厨，需要厨师现做。同时呢，服务员还持有命令对象，也就是菜单，最后启动命令执行的也是服务员。
+客户每点一到菜，也就是发出一个命令，服务员不会马上执行命令，而是等客户点菜完毕后，才会启动命令，如果把这个菜单也抽象成为一个命令，就相当于
+一个大的命令，里面包含多个命令，也就是宏命令,也就说是,执行一个宏命令，就是执行宏命令里面所包含的所有命令对象。
+
+宏命令就其本质还是一个命令,所以一样要实现Command接口，宏命令和普通命令的不同在于,宏命令是多个命令组合起来的，因此在宏命令对象里面会记录
+多个组成它的命令对象。也就是一般会持有一个command的集合类，比如List<Command> commandList=new ArrayList<Command>;
+   下面模拟客户点餐,分热菜和冷菜,也就是说有2种command,而且对应两种Reciver,也就是做热菜的师傅和和做凉菜的师傅
+   
+//定义接收者接口  
+public interface CookApi{
+  public void cook(String name);
+}
+//接收者真正的实现对象, 做热菜
+public class HotCook{
+  @override
+  public void cook(String name){
+     //做热菜
+  }
+}
+//接收者真正的实现对象, 做凉菜
+public class  CoolCook{
+  @override
+  public void cook(String name){
+     //做凉菜
+  }
+}
+//定义command接口  声明执行的操作
+public interface Command{
+  public void execute();//执行命令对应的操作
+}
+//具体的命令实现对象, 热菜——北京烤鸭
+public class DuckCommand implements Command{
+  public CookApi cookApi;//持有命令对象
+  public　void setCookApi(CookApi cookApi){
+     this.cookApi=cookApi;
+   }
+   @override
+   public void execute(){
+     this.cookApi.cook("北京烤鸭");
+   }
+}
+//具体的命令实现对象, 凉菜——凉拌猪肉
+public class PorkCommand{
+  public CookApi cookApi;//持有命令对象
+  public　void setCookApi(CookApi cookApi){
+     this.cookApi=cookApi;
+   }
+   @override
+   public void execute(){
+     this.cookApi.cook("凉拌猪肉");
+   }
+}
+//宏命令对象，菜单，用来组合多个命令对象，也就是有热菜和凉菜
+public MenuCommand implements Command{
+  private List<Command> commandList=new ArrayList<Command>;//持有一个命令集合
+  public void addCommand(Command command){
+     commandList.add(command);
+     }
+     @override
+   public execute(){
+      for(Command command:commandList){//循环执行命令集合中的每一个命令
+         command.execute();
+      }
+    }
+}
+
+//Invoker  服务员,负责组装每个菜(Command)和具体的实现者(Invoker)
+public class Waiter{
+   private MenuCommand menuCommand=new MenuCommand;//持有一个宏命令对象——菜单
+   //客户点菜
+   public void orderDish(Command cmd){
+       //创建接收者
+       CookApi hotCook=new HotCook();
+       CookApi coolCook=new CoolCook();
+       //给命令对象设置接收者
+       if(cmd instanceof DuckCommand){
+          ((DuckCommand)cmd).setCookApi(hotCook);
+       }else if(cmd instanceof PorkCommand){
+         ((PorkCommand)cmd).setCookApi(coolCook);
+       }
+       //添加到菜单中
+       menuCommand.addCommand(cmd);
+    }
+    //客户点菜完毕。表示要执行命令了,这里就是执行菜单这个组合命令
+    public void orderOver(){
+       this.menuCommand.execute();
+    }
+
+}
+
+public class Client{
+     //创建服务员  Invoker
+    Waiter waiter=new Waiter();
+    //创建命令对象
+    Command duck=new DuckCommand();
+    Command pork=new PorkCommand();
+    //点菜 就是把这些菜(命令)让服务员记录下来
+    waiter.orderDish(duck);
+    waiter.orderDish(pork);
+    //点菜完毕
+    waiter.orderOver();
+}
+
+4.队列请求
+
+5.日志请求
+
+命令模式的优点：
+1.命令模式使得发起命令的对象——客户端，和具体实现命令的对象——接收者对象完全解耦,也就是说发起命令的对象
+完全不知道具体实现对象是谁，也不知道如何实现。
+2.更动态的控制
+命令模式把请求封装起来，可以动态地对它进行参数化，队列化金和日志化等操作，从而使得系统更灵活
+3.很自然的复合命令
+命令模式中的命令对象能够很容易地组合成复合命令，也就是前面讲的宏命令，从而使得系统操作更简单，功能更强大
+4.更好的扩展性
+由于发起命令的对象和具体的实现完全解耦，因此扩展新的命令就很容易，只需要实现新的命令对象，然后在装配的时候，
+把具体的实现对象(Receiver)设置到命令对象(Command)中，然后就可以使用这个命令对象，已有的实现(Receiver)完全不用变化。
+
+命令模式的本质：封装请求
+命令模式的关键就是将请求封装命令对象，然后就可以对这个对象进行一系列的处理了，比如上面讲到的参数化配置，可撤销操作，宏命令
+队列请求，日志请求等功能处理。
+
+何时选用命令模式？
+1.如果需要抽象出需要执行的动作，并参数化化这些对象，将需要执行的动作抽象成命令，然后实现命令的参数化配置。
+2.如果需要在不同的时刻指定，排列和执行请求，可以选用命令模式，将这些请求封装成命令对象，然后实现将请求队列化。
+3.如果需要支持取消操作，通过管理命令对象，能很容易地实现命令的恢复和重做功能。
+4.如果需要支持当系统崩溃时，能将系统的操作功能重新执行一遍，可以选用命令模式，将这些操作功能的请求封装成命令对象，
+然后实现日志命令，就可以在系统恢复以后，通过日志获取命令对象，从而重新执行一遍功能。
+5.在需要事务的系统中，可以选用命令模式，命令模式提供了对事务进行建模的方法，命令模式有一个别名就是Transaction。
+
+退化的命令模式：
+如果命令对象实现了命令要求的所有功能，那么就不需要接收者(Reciver)了，既然没有了接收者,也就不需要组装者(Client)了，
+也就是说只有Command和Invoker，Command负责实现命令，Invoker负责客户端的请求，然后将请求转调Command的功能处理
+public interface Command{
+  public void execute();
+}
+public class ConcreteCommand implements Command{
+  @override
+  public void execute(){
+    //具体的实现
+   }
+}
+public　class Invoker{
+  private Command cmd;//持有命令对象
+  public setCommand(Command cmd){
+      this.cmd=cmd;
+    }
+  public void operate(){
+     this.cmd.execute();//转调具体命令实现对象
+   }
+}
+
+public class Test{
+  public void doSomething(){
+      Command cmd=new ConcreteCommand();
+      Invoker invoker=new Invoker();
+      invoker.setCommand(cmd);
+      
+      invoker.operate();//执行命令
+    }
+}
+
+继续变化，Invoker也开始变得智能化，能够执行命令请求
+public class Invoker{
+  public void operate(Command cmd){
+      //在执行命令前进行某些操作
+       cmd.execute();  //回调
+      //在执行命令后进行某些操作
+     
+   }
+}
+这个时候Invoker调用命令对象的执行方法，不叫转调,改名叫“回调”，意思就是在我Invoker需要的时候，会回调你命令对象，命令
+对象你就乖乖地写好实现，等我"回调"你就可以了。这个时候命令模式的实现基本上就等同于java回调机制的实现。
+
+再进一步，把单独实现命令接口的类改为匿名内部类实现，这个时候就剩下命令的接口，Invoker类，还有客户端了。
+public interface Command{
+  public void execute();
+  public void setStr(String s);
+}
+public class Client{
+   //没有具体实现类，用匿名内部类代替
+   Command cmd=new Command(){
+    private String str="";
+    public  void setStr(String s){
+       this.str=s;
+     }
+    public void execute(){
+       //具体实现
+     }
+   }
+   cmd.setStr("test");
+   
+   Invoker invoker=new Invoker();
+    invoker.operate(cmd);//执行命令
+   
+}
+
+
+
+
+
+
+
+
+
+
+

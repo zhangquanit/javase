@@ -1,0 +1,7 @@
+1464342625855	Extract local variable 'time'
+1464342697792	Rename type 'HttpTask'
+1464343079295	Extract local variable 'httpTask'
+1464343464381	Extract local variable 'taskManager'
+1464343644188	Extract local variable 'taskTest'
+1464343795319	Extract local variable 'taskCount'
+1464345079229	Rename type 'TaskTest'

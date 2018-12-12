@@ -1,0 +1,91 @@
+
+Properties ：
+		1，是map集合中的hashtable集合的子类。
+		2，是和IO技术相结合的集合对象，它可以将集合中的键值进行持久化。
+		3，该集合的中的键值都是字符串类型。
+		4，该集合通常应用于配置文件(键值对信息的配置文件)的操作。
+
+		配置文件的常见的两种：
+		1，键值对信息。key=value
+		2，XML文件。 用标签来描述数据信息的关系。 
+
+		特有方法：
+		setproperty("","");字符串对，存储键值到集合，也可以用来修改，注意，只做内存修改，要持久化得保存！
+		getproperty("");获取一个键
+		stringProperty();获取所有键 
+
+		list：将属性列表输出到指定的输出流，一般只用于列出！
+		store(out，comments):(输出流，注释信息)将属性列表输出到指定的输出流，持久化存储！
+		load()：读取文件，获得键值
+		
+		java.properties 规范中 java中对于键值对的文件一般后缀名为properties
+
+其他流对象：
+
+		1，打印流：
+		PrintStream：字节打印流。
+		在创建对象时，可以接受三种类型的数据。
+		1，File 对象。 new PrintStream(new File("a.txt"));
+		2，字符串文件路径。new PrintStream("a.txt");
+		3，字节输出流。new PrintStream(System.out);new PrintStream(new FileOutputStream("a.txt"));
+					new PrintStream(new BufferedOutputStream(new FileOutputStream("a.txt"));
+					
+		该打印流提供了更多的打印方法 print println.
+
+		print(int):会将整数转成字符串。
+		write(int)：会将整数的4个字节中的最低一个字节写出。
+
+
+		需要保证数据原样性的时候，可以使用print方法。可是使用打印流。
+
+
+		PrintWriter:字符打印流。
+		1，File 对象。 new PrintWriter(new File("a.txt"));
+		2，字符串文件路径。new PrintWriter("a.txt","UTF-8");
+		 如果构造的文件，那么可以指定额外参数为字符集。
+
+		3，字节输出流。new PrintWriter(System.out);
+		4，字符输出流。new PrintWriter(new BufferedWriter(new FileWriter("a.txt"));
+		如果构造的是输出流，可以指定参数，完成自动刷新。注意：自动刷新只对三个方法有效。println printf format.
+
+
+		该对象比较常用。在tomcat服务器处理应答时使用的就是这个对象。 
+
+
+		SequenceInputStream:序列流：
+		可以将多个读取流合并成一个读取流。
+		当多个源变成一个源，在对应一个目的，就可以实现数据的合并。
+
+		ObjectInputStream 和 ObjectOutputStream 。
+		这两个流对象可以直接操作对象，用于对对象的序列化。将对象进行持久化存储(即存放到硬盘上)。
+		如果对象需要被序列化，需要实现一个Serializable接口，
+		该接口可以给类提供了UID进行标示，java建议 这个UID，最好手动指定。
+		而且权限是private.
+
+
+		注意：对象中的静态成员数据，不可以被序列化、
+		如果一个成员是非静态的，还不想将其序列化，这时需要一个关键字:transient。
+
+		RandomAccessFile
+		1，该对象并不属于流体系中的对象，而是一个工具类，将流进行封装。
+		2，该类的对象只能操作文件。
+		3，该类即能读又能写。 
+		4，该类中封装了一个大型的byte数组，通过内部定义的指针(索引)来对数组数据进行操作。
+		5，随机访问，其实就是通过操作指针从任意的数组位置进行数据的访问(读写).
+			通过getFilePointer(),获取指针的位置，通过seek方法设置指针的位置。
+			
+		注意：被操作的数据，最好有规律。
+
+
+
+
+
+
+
+
+
+
+
+
+
+

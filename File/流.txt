@@ -1,0 +1,205 @@
+字符流的由来：
+以前都是字节流，为了方便于字节流处理字符数据，因为字符数据虽然由字节组成，
+但是涉及到了编码操作，所以就有了专门用于处理字符数据的字符流。
+其实字符流就是 ： 字节流+编码表。
+
+如果是处理设备上的字符数据，使用字符流更为方便。
+
+如果处理处理设备上非字符数据，如 电影，图片等，使用字节流。
+
+IO流的体系：
+字节流：
+两个基类：InputStream  OutputStream
+
+字符流：
+两个基类：Reader  Writer
+
+特点：基类下的子类们的后缀名都是父类名，前缀名都是该子类功能。
+      字符流操作的是字符 比如读取或缓冲区都是char
+      字节流操作的是字节  byte
+
+
+字符流的缓冲区：
+在字符流的读写过程中，如果定义了char类型的数组，可以提高读写效率。
+
+为了便于效率提高和操作，字符流提供了缓冲区对象，将数组进行了封装。
+对外提供了更为方便的方法来操作。
+
+这两个对象是：
+BufferedReader:
+BufferedWriter:
+作用：它们的出现是给流提高读写效率的。所以，使用缓冲区之前必须先有流对象。
+
+
+在这两个缓冲区中，
+BufferedWriter提供了newLine方法。
+BufferedReader提供了readLine方法。
+
+既然可以了解readLine方法的原理，我们可以模拟一个BufferedReader。
+
+
+
+缓冲区的出现其实是使用了一种设计模式来完成。
+缓冲区的好处：是提高了效率，对指定流对象进行了功能的增强或者扩展。
+该种设计模式是：装饰设计模式。
+解决的问题：对已有的对象进行功能的增强和扩展。
+
+
+class Demo
+{
+	void show()
+	{}
+}
+
+class DemoWrapper 
+{
+	private Demo d;
+	DemoWrapper(Demo d)
+	{
+		this.d = d;
+	}
+	public void show()
+	{
+		code1...
+		d.show();
+		code2....
+	}
+}
+
+//装饰体现扩展。
+class Person
+{
+	void chifan()
+	{
+		sop("吃饭");
+	}
+}
+Person p = new Perosn();
+p.chifan();//吃饭
+
+NewPerson pp = new NewPerson(p);
+pp.chifan();//开胃酒，吃饭，甜点，来一根。
+
+
+class NewPerson
+{
+	Person p;
+	NewPerson(Person p)
+	{
+		this.p = p
+	}
+	void chifan()
+	{
+		sop("开胃酒");
+		p.chifan();
+		sop("甜点");
+		sop("来一根");
+	}
+}
+
+
+---------
+继承体现扩展。
+class Person
+{
+	void chifan()
+	{
+		sop("吃饭");
+	}
+	void sleep()
+	{
+		sop("睡觉");
+	}
+}
+
+
+class SubPerson extends Person
+{
+	void chifan()
+	{
+		sop("开胃酒");
+		super.chifan();
+		sop("甜点");
+		sop("来一根");
+	}
+}
+
+
+
+继承也可以解决功能的扩展并对功能进行复用。
+继承和装饰有什么区别呢？
+比如刚才的Person中有两个方法，一个是chifan，一个是sleep。
+如果只对Person类中的chifan方法进行增强。
+选择继承：可以完成，但是子类却对Person类中的所有方法进行复用,因为子类继承拿到了父类中所有方法。
+		而且两个类之间的耦合性较强。
+需要对其进行优化：
+		可以用装饰的思想来完成，只对功能进行增强，不建立关系，这样要比继承灵活。
+		
+
+装饰类可以对一个对象进行增强，也可以一组共性类型的对象进行增强。
+如果MyBufferedReader是内置数组的缓冲区，可以对流对象进行功能的效率提高。
+MyBufferedReader(FileReader r): //只对只一个对象FileReader进行提高。
+为了可以对更多的读取流进行效率的提高。
+可以装饰其父类。
+MyBufferedReader(Reader r):这样可以对Reader类型的对象都进行效率提高。
+
+但是注意：装饰可以提高读取效率，它的内部需要提供高效的读取方法，这个方法还是使用的流对象中的读取动作。 
+意味着：装饰类提供的也是读取功能。那么它应该也是读取流中aa的一员。
+所以MyBufferedReader extends Reader
+
+
+记住：装饰类和被装饰类因为功能是相同的，只不过装饰类在原有功能上进行增强或扩展。所以装饰类和被装饰类应该所属于一个体系(类或者接口)
+
+Reader
+	|--FileReader
+	|--BufferedReader
+
+
+
+------------------------------------------------
+
+字符流：
+FileReader
+FileWriter
+
+BufferedReader
+BufferedWriter
+
+
+字节流：
+InputStream  OutputStream
+对文件操作的流对象。
+FileInputStream
+FileOutputStream
+
+BufferedInputStream
+BufferedOutputStream
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

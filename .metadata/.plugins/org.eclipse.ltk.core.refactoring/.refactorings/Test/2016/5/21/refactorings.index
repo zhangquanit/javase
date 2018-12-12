@@ -1,0 +1,6 @@
+1463713795514	Extract local variable 'class1'
+1463713805839	Extract local variable 'declaredMethods'
+1463713837218	Extract local variable 'name'
+1463713912007	Extract local variable 'invoke'
+1463714432923	Extract local variable 'substring'
+1463718081067	Extract local variable 'substring'

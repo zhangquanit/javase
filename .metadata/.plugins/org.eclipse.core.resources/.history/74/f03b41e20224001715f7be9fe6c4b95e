@@ -1,0 +1,62 @@
+package com.cn.javase;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * @author zhangquanit
+ */
+public class Test {
+
+	public static void main(String[] args) {
+		int[] A = new int[9];
+		A[0] = -1;
+		A[1] = 1;
+		A[2] = 3;
+		A[3] = 3;
+		A[4] = 3;
+		A[5] = 2;
+		A[6] = 1;
+		A[7] = 0;
+		A[8] = -1;
+
+		int count=test2(A);
+		System.out.println(count);
+	}
+
+	public static int test(int[] A) {
+		if(null==A||A.length<3)return 0;
+		int len=A.length;
+		for(int i=0;i<len;i++){
+			
+		}
+		
+		return 0;
+	}
+	public static void sub(int start,int[] A){
+		int len=A.length;
+		int begin=start;
+		int diff=A[start+1]-A[start];
+		begin=start+1;
+		while(begin<len-1){
+			
+		}
+	}
+	public static int test2(int[] is){
+		 if(is.length<3)
+	    	 return 0;
+	     int count= 0 ;
+	     for (int i = 0; i < is.length; i++) {
+			if(i+2>is.length){
+				return count;
+			}
+			
+			for (int j = i+2; j < is.length; j++) {
+				if(is[i+1]-is[i]== is[j]-is[j-1]){
+					count++;
+				}
+			}
+		}
+	     return count;
+	}
+}

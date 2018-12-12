@@ -1,0 +1,132 @@
+流的操作规律：
+
+对于流的操作无非设备的上数据，
+而数据有数据源和数据汇(数据目的)
+
+当使用流对象时，对象很多，到底使用哪个呢？
+只要通过几个明确就可以搞定。
+
+
+明确1：源和目的。
+	源：读取，InputStream  Reader
+	目的：写入 OutputStream Writer
+	
+明确2：操作的数据是否是纯文本数据。
+	源:并且是纯文本  Reader
+	目的：并且是纯文本，Writer
+	不是纯文本：毫无疑问，必须使用字节流。
+	到这里就明确了具体的体系。
+明确3：数据所在设备。
+	源设备：
+	硬盘文件：File
+	键盘：System.in
+	内存：数组
+	
+	目的设备：
+	硬盘文件：File
+	控制台：System.out
+	内存：数组
+	其实到了这步就是明确具体体系中的具体流对象.
+明确4：需要加上额外功能吗？比如，提高效率？
+	需要：就使用具体的功能对象即可.
+	比如需要高效,就使用带Buffer的对象 哦了.
+	
+	 
+--------------------
+需求1：读取一个文本文件数据，转成大写，存储到一个文件中。
+
+1明确:
+	在该需求中,既有源,又有目的.
+	源：InputStream，Reader
+	目的：OutputStream Writer
+	
+2明确：是否是纯文本数据
+	是！
+	源：Reader
+	目的：Writer
+
+3明确：明确设备.
+	源：硬盘(File)。
+	目的：硬盘(file).
+
+	FileReader fr = new FileReader("a.txt");
+	FileWriter fw = new Filewriter("b.txt");
+4明确：需要额外功能吗？
+	需要，高效。那就使用Buffer
+	BufferedReader bufr = new BufferedReader(new FileReader("a.txt"));
+	BufferedWriter bufw = new BufferedWriter(new FileWriter("b.txt"));
+	
+	
+------------------------
+
+
+
+
+需求2：读取键盘录入，将数据转成大写存储到文件中。
+
+1明确:
+	在该需求中,既有源,又有目的.
+	源：InputStream，Reader
+	目的：OutputStream Writer
+	
+2明确：是否是纯文本数据
+	是！
+	源：Reader
+	目的：Writer
+
+3明确：
+	源：设备：System.in;
+	目的：设备:硬盘 File
+	
+	发现源是一个字节流对象，但是其中的数据却是文本数据。
+	所以要使用字符流对象进行操作更为方便。
+	所以需要对具体设备对象转成字符流对象。
+	这时就要用到转换流。既然是源，使用的转换流就是 InputStreamReader
+	
+	InputStreamReader isr = new InputStreamReader(System.in);
+	FileWriter fw = new FileWriter("a.txt");
+4明确，是否需要额外功能？
+	需要，高效。
+	BufferedReader bufr = new BufferedReader(new InputStreamReader(System.in));
+	BufferedWriter bufw = new BufferedWriter(new FileWriter("a.txt"));
+	
+---------------------------
+
+
+需求3：读取一个文本文件数据，转成大写后，打印到控制台上
+
+1明确:
+	在该需求中,既有源,又有目的.
+	源：InputStream，Reader
+	目的：OutputStream Writer
+	
+2明确：是否是纯文本数据
+	是！
+	源：Reader
+	目的：Writer
+
+3明确：
+	源：设备：硬盘 File
+	目的：设备:System.out;
+	
+	发现目的是一个字节流对象，但是其中的数据却是文本数据。
+	所以要使用字符流对象进行操作更为方便。
+	所以需要对具体设备对象转成字符流对象。
+	这时就要用到转换流。既然是目的，使用的转换流就是 OutputStreamWriter
+	
+	FileReader fr = new FileReader("a.txt");
+	OutputStreamWriter osw = new OutputStreamWriter(System.out);
+	
+4明确，是否需要额外功能？
+	需要，高效。
+	BufferedReader bufr = new BufferedReader(new FileReader("a.txt"));
+	BufferedWriter bufw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+需求4：读取键盘录入，转成大写，打印到控制台上。
+
+	
+	
+	
+	
+	
+	
