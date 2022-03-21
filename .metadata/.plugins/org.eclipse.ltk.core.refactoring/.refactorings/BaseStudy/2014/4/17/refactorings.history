@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Copy element &apos;SimpleDateFormatTest.java&apos; to &apos;util/src/com.cn.util&apos;&#x0D;&#x0A;- Original project: &apos;BaseStudy&apos;&#x0D;&#x0A;- Destination element: &apos;util/src/com.cn.util&apos;&#x0D;&#x0A;- Original element: &apos;cn.java.test.SimpleDateFormatTest.java&apos;" description="Copy compilation unit" destination="=util/src&lt;com.cn.util" element1="/src&lt;cn.java.test{SimpleDateFormatTest.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1398162804241" units="1" version="1.0"/>
-</session>

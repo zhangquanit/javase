@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Extract local variable &apos;declaredMethods&apos; from expression &apos;proxy.getClass().getDeclaredMethods()&apos;&#x0D;&#x0A;- Original project: &apos;Test&apos;&#x0D;&#x0A;- Variable name: &apos;declaredMethods&apos;&#x0D;&#x0A;- Destination method: &apos;com.terry.test.DynamicProxyTest.main()&apos;&#x0D;&#x0A;- Variable expression: &apos;proxy.getClass().getDeclaredMethods()&apos;&#x0D;&#x0A;- Replace occurrences of expression with variable" description="Extract local variable &apos;declaredMethods&apos;" final="false" id="org.eclipse.jdt.ui.extract.temp" input="/src&lt;com.terry.test{DynamicProxyTest.java" name="declaredMethods" replace="true" selection="441 0" stamp="1446545307795" version="1.0"/>
-</session>

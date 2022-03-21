@@ -1,8 +1,0 @@
-1488779011620	Extract local variable 'dataInputStream'
-1488779085452	Extract local variable 'data'
-1488779204505	Delete element
-1488785954575	Extract local variable 'thisTest'
-1488786005156	Extract local variable 'class1'
-1489204858209	Delete element
-1489205073172	Extract local variable 'myHandler'
-1489205077653	Extract local variable 'myExecutor'

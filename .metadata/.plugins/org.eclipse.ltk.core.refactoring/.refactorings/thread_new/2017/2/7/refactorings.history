@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Extract local variable &apos;thread&apos; from expression &apos;new Thread(){public void run(){System.out.println(&quot;-------run&quot;);}}&apos;&#x0D;&#x0A;- Original project: &apos;thread_new&apos;&#x0D;&#x0A;- Variable name: &apos;thread&apos;&#x0D;&#x0A;- Destination method: &apos;com.thread.old.TrandionalThread.run()&apos;&#x0D;&#x0A;- Variable expression: &apos;new Thread(){public void run(){System.out.println(&quot;-------run&quot;);}}&apos;" description="Extract local variable &apos;thread&apos;" final="false" id="org.eclipse.jdt.ui.extract.temp" input="/src&lt;com.thread.old{TrandionalThread.java" name="thread" replace="false" selection="205 88" stamp="1487408171404" version="1.0"/>
-</session>
